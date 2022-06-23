@@ -84,7 +84,7 @@ const Movies = () => {
           <motion.div layout className="popular-movies">
             <AnimatePresence>
               {filtered.map((movie, key) => (
-                <Movie key={key} movie={movie} />
+                <Movie key={key} movie={movie} type="watchlist" />
               ))}
             </AnimatePresence>
           </motion.div>

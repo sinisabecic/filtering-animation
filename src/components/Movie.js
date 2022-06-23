@@ -1,17 +1,9 @@
 import React, { useContext } from "react";
 import { motion } from "framer-motion";
-import { MovieContext } from "../contexts/MovieContext";
+import MovieControls from "./MovieControls";
 
-const Movie = ({ movie }) => {
-  const { addMovieToWatchList, watchlist, markAsWatched, watched } =
-    useContext(MovieContext);
-
-  let storedMovie = watchlist.find((o) => o.id === movie.id);
-  let watchedMovie = watched.find((o) => o.id === movie.id);
-
-  const watchlistDisabled = storedMovie ? true : false;
-  const watchedDisabled = watchedMovie ? true : false;
-
+// type cu koristiti kao identifikator koji odredjuje tip stranice/komponente
+const Movie = ({ movie, type }) => {
   return (
     <motion.div
       layout
@@ -22,23 +14,9 @@ const Movie = ({ movie }) => {
     >
       <h2>Title: {movie.title}</h2>
       <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt="" />
-      <button
-        className="btn"
-        style={{ cursor: "pointer" }}
-        disabled={watchlistDisabled}
-        onClick={() => addMovieToWatchList(movie)}
-      >
-        {!storedMovie ? "Add to watchlist" : "Added to watchlist"}
-      </button>
-      {" | "}
-      <button
-        className="btn"
-        style={{ cursor: "pointer" }}
-        disabled={watchedDisabled}
-        onClick={() => markAsWatched(movie)}
-      >
-        {!watchedMovie ? "Mark as watched" : "Watched"}
-      </button>
+      {/*  */}
+      <MovieControls type={type} movie={movie} />
+      {/*  */}
     </motion.div>
   );
 };

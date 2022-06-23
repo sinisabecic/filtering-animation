@@ -9,13 +9,17 @@ const Watched = () => {
   return (
     <div className="App" style={{ margin: "3rem" }}>
       <h1>Watched</h1>
-      <motion.div layout className="popular-movies">
-        <AnimatePresence>
-          {watched.map((movie, key) => (
-            <Movie key={key} movie={movie} />
-          ))}
-        </AnimatePresence>
-      </motion.div>
+      {!watched.length > 0 ? (
+        <h3 className="text-danger">Your watched list is empty!</h3>
+      ) : (
+        <motion.div layout className="popular-movies">
+          <AnimatePresence>
+            {watched.map((movie, key) => (
+              <Movie key={key} movie={movie} type="watched" />
+            ))}
+          </AnimatePresence>
+        </motion.div>
+      )}
     </div>
   );
 };
