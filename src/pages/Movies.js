@@ -3,6 +3,7 @@ import { apiCallMovie } from "../services/api";
 import Movie from "../components/Movie";
 import Filter from "../Filter";
 import { motion, AnimatePresence } from "framer-motion";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Movies = () => {
   const apiKey = "8183d234f0477cb5b9dea44a1fca8b09";
@@ -10,6 +11,7 @@ const Movies = () => {
   const [popular, setPopular] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [activeGenre, setActiveGenre] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const [search, setSearch] = useState("");
 
@@ -22,6 +24,7 @@ const Movies = () => {
         .then((res) => {
           setPopular(res.data.results);
           setFiltered(res.data.results);
+          setIsLoaded(true);
           console.log(res.data.results);
         })
         .catch((err) => console.log(err));
@@ -38,7 +41,7 @@ const Movies = () => {
     } else {
       fetchPopular();
     }
-  }, [search]);
+  }, [search, isLoaded]);
 
   //
   //* Get popular movies
@@ -50,34 +53,41 @@ const Movies = () => {
 
         setPopular(res.data.results);
         setFiltered(res.data.results);
+        setIsLoaded(true);
       })
       .catch((err) => console.log(err));
   };
 
   return (
     <div className="App" style={{ margin: "3rem" }}>
-      <div style={{ margin: "1rem" }}>
-        <input
-          type="text"
-          name="movie"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-      </div>
+      {!isLoaded ? (
+        <CircularProgress />
+      ) : (
+        <div className="App" style={{ margin: "3rem" }}>
+          <div style={{ margin: "1rem" }}>
+            <input
+              type="text"
+              name="movie"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
 
-      <Filter
-        popular={popular}
-        setFiltered={setFiltered}
-        setActiveGenre={setActiveGenre}
-        activeGenre={activeGenre}
-      />
-      <motion.div layout className="popular-movies">
-        <AnimatePresence>
-          {filtered.map((movie, key) => (
-            <Movie key={key} movie={movie} />
-          ))}
-        </AnimatePresence>
-      </motion.div>
+          <Filter
+            popular={popular}
+            setFiltered={setFiltered}
+            setActiveGenre={setActiveGenre}
+            activeGenre={activeGenre}
+          />
+          <motion.div layout className="popular-movies">
+            <AnimatePresence>
+              {filtered.map((movie, key) => (
+                <Movie key={key} movie={movie} />
+              ))}
+            </AnimatePresence>
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 };
