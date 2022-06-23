@@ -9,8 +9,9 @@ const MovieControls = ({ movie, type }) => {
     watchlist,
     markAsWatched,
     watched,
-    removeFromWatchlist,
+    // removeFromWatchlist, //? markAsWatched ova fja to obavlja
     removeFromWatched,
+    moveToWatchlist,
   } = useContext(MovieContext);
 
   let storedMovie = watchlist.find((o) => o.id === movie.id);
@@ -47,13 +48,22 @@ const MovieControls = ({ movie, type }) => {
       {type === "watched" && (
         <>
           {watchedMovie && (
-            <button
-              className="btn"
-              style={{ cursor: "pointer" }}
-              onClick={() => removeFromWatched(movie.id)}
-            >
-              Remove from watched
-            </button>
+            <>
+              <button
+                className="btn"
+                style={{ cursor: "pointer" }}
+                onClick={() => removeFromWatched(movie.id)}
+              >
+                Remove from watched
+              </button>{" "}
+              <button
+                className="btn"
+                style={{ cursor: "pointer" }}
+                onClick={() => moveToWatchlist(movie)}
+              >
+                Move to watchlist
+              </button>
+            </>
           )}
         </>
       )}

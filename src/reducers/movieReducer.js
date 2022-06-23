@@ -31,6 +31,14 @@ export const movieReducer = (state, action) => {
         ...state,
         watched: state.watched.filter((movie) => movie.id !== action.payload),
       };
+    case "MOVE_TO_WATCHLIST":
+      return {
+        ...state,
+        watched: state.watched.filter(
+          (movie) => movie.id !== action.payload.id
+        ),
+        watchlist: [action.payload, ...state.watchlist],
+      };
     default:
       return state;
   }

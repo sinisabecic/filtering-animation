@@ -28,6 +28,10 @@ export const MovieContextProvider = ({ children }) => {
     dispatch({ type: "REMOVE_FROM_WATCHED_LIST", payload: id });
   };
 
+  const moveToWatchlist = (movie) => {
+    dispatch({ type: "MOVE_TO_WATCHLIST", payload: movie });
+  };
+
   return (
     <MovieContext.Provider
       value={{
@@ -37,6 +41,7 @@ export const MovieContextProvider = ({ children }) => {
         markAsWatched,
         removeFromWatchlist,
         removeFromWatched,
+        moveToWatchlist,
       }}
     >
       {children}
