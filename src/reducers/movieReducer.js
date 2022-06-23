@@ -16,14 +16,14 @@ export const movieReducer = (state, action) => {
         ...state,
         watched: [action.payload, ...state.watched],
         watchlist: state.watchlist.filter(
-          (movie) => movie.id !== action.payload.id
+          (movie) => movie.id !== action.payload.id //automatsko brisanje po njegovom id-u
         ),
       };
     case "REMOVE_FROM_WATCHLIST":
       return {
         ...state,
         watchlist: state.watchlist.filter(
-          (movie) => movie.id !== action.payload
+          (movie) => movie.id !== action.payload //po izabranom filmu brisanje
         ),
       };
     case "REMOVE_FROM_WATCHED_LIST":
