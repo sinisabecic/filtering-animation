@@ -27,50 +27,32 @@ const MovieControls = ({ movie, type }) => {
             <button
               className="btn"
               style={{ cursor: "pointer" }}
-              onClick={() => removeFromWatchlist(movie.id)}
+              onClick={() => markAsWatched(movie)}
             >
-              Remove from watchlist
+              Mark as watched
             </button>
           ) : (
-            <>
-              <button
-                className="btn"
-                style={{ cursor: "pointer" }}
-                //   disabled={watchlistDisabled}
-                onClick={() => addMovieToWatchList(movie)}
-              >
-                Add to watchlist
-              </button>{" "}
-              <button
-                className="btn"
-                style={{ cursor: "pointer" }}
-                disabled={watchedDisabled}
-                onClick={() => markAsWatched(movie)}
-              >
-                Mark as watched
-              </button>
-            </>
+            <button
+              className="btn"
+              style={{ cursor: "pointer" }}
+              //   disabled={watchlistDisabled}
+              onClick={() => addMovieToWatchList(movie)}
+            >
+              Add to watchlist
+            </button>
           )}
         </>
       )}
 
       {type === "watched" && (
         <>
-          {watchedMovie ? (
+          {watchedMovie && (
             <button
               className="btn"
               style={{ cursor: "pointer" }}
               onClick={() => removeFromWatched(movie.id)}
             >
               Remove from watched
-            </button>
-          ) : (
-            <button
-              className="btn"
-              style={{ cursor: "pointer" }}
-              onClick={() => markAsWatched(movie)}
-            >
-              Mark as watched
             </button>
           )}
         </>

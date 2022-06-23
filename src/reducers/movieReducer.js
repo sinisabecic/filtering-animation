@@ -12,7 +12,13 @@ export const movieReducer = (state, action) => {
     case "ADD_MOVIE_TO_WATCHLIST":
       return { ...state, watchlist: [action.payload, ...state.watchlist] };
     case "MARK_AS_WATCHED":
-      return { ...state, watched: [action.payload, ...state.watched] };
+      return {
+        ...state,
+        watched: [action.payload, ...state.watched],
+        watchlist: state.watchlist.filter(
+          (movie) => movie.id !== action.payload.id
+        ),
+      };
     case "REMOVE_FROM_WATCHLIST":
       return {
         ...state,
