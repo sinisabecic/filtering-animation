@@ -66,8 +66,10 @@ const Movies = () => {
         <div className="App" style={{ margin: "3rem" }}>
           <div style={{ margin: "1rem" }}>
             <input
+              style={{ width: "22rem", height: "2rem", borderRadius: "1rem" }}
               type="text"
               name="movie"
+              placeholder="Search movies..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
