@@ -6,6 +6,8 @@ import clsx from "clsx";
 import Login from "./pages/Login";
 import { PrivateRoute } from "./PrivateRoute";
 import Movies from "./pages/Movies";
+import Watchlist from "./pages/Watchlist";
+import Watched from "./pages/Watched";
 import { makeStyles } from "@material-ui/core";
 import { AuthContextProvider } from "./contexts/AuthContext";
 import { MovieContextProvider } from "./contexts/MovieContext";
@@ -33,18 +35,26 @@ function App() {
   return (
     <div>
       <AuthContextProvider>
-        {/* <MovieContextProvider> */}
-        {/* Router je u index.js */}
-        <NavBar classes={classes}></NavBar>
-        <Routes>
-          <Route path="/login" element={<Login />} />
+        <MovieContextProvider>
+          {/* Router je u index.js */}
+          <NavBar classes={classes}></NavBar>
+          <Routes>
+            <Route path="/login" element={<Login />} />
 
-          <Route
-            path="/movies"
-            element={<PrivateRoute children={<Movies />} />}
-          />
-        </Routes>
-        {/* </MovieContextProvider> */}
+            <Route
+              path="/movies"
+              element={<PrivateRoute children={<Movies />} />}
+            />
+            <Route
+              path="/movies/watchlist"
+              element={<PrivateRoute children={<Watchlist />} />}
+            />
+            <Route
+              path="/movies/watched"
+              element={<PrivateRoute children={<Watched />} />}
+            />
+          </Routes>
+        </MovieContextProvider>
       </AuthContextProvider>
     </div>
   );

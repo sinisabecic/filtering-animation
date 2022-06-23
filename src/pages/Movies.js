@@ -11,13 +11,40 @@ const Movies = () => {
   const [filtered, setFiltered] = useState([]);
   const [activeGenre, setActiveGenre] = useState(0);
 
-  useEffect(() => {
-    fetchPopular();
-  }, []);
+  const [search, setSearch] = useState("");
 
+  useEffect(() => {
+    const fetchSearchedMovies = async () => {
+      await apiCallMovie
+        .get(
+          `/search/movie?api_key=${apiKey}&language=en-US&include_adult=true&query=${search}`
+        )
+        .then((res) => {
+          setPopular(res.data.results);
+          setFiltered(res.data.results);
+          console.log(res.data.results);
+        })
+        .catch((err) => console.log(err));
+    };
+
+    if (search) {
+      const timeoutId = setTimeout(
+        () => !!search && fetchSearchedMovies(),
+        500
+      );
+      return () => {
+        clearTimeout(timeoutId);
+      };
+    } else {
+      fetchPopular();
+    }
+  }, [search]);
+
+  //
+  //* Get popular movies
   const fetchPopular = async () => {
     await apiCallMovie
-      .get(`/popular?api_key=${apiKey}`)
+      .get(`/movie/popular?api_key=${apiKey}`)
       .then((res) => {
         console.log(res.data);
 
@@ -28,12 +55,21 @@ const Movies = () => {
   };
 
   return (
-    <div className="App">
+    <div className="App" style={{ margin: "3rem" }}>
+      <div style={{ margin: "1rem" }}>
+        <input
+          type="text"
+          name="movie"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </div>
+
       <Filter
         popular={popular}
         setFiltered={setFiltered}
-        activeGenre={activeGenre}
         setActiveGenre={setActiveGenre}
+        activeGenre={activeGenre}
       />
       <motion.div layout className="popular-movies">
         <AnimatePresence>

@@ -22,7 +22,7 @@ apiCall.interceptors.response.use(
 );
 
 //* Movie url (TMDB API)
-const apiMovieUrl = "https://api.themoviedb.org/3/movie";
+const apiMovieUrl = "https://api.themoviedb.org/3";
 
 export const apiCallMovie = axios.create({
   baseURL: apiMovieUrl,

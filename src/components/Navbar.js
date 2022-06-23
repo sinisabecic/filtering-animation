@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 // import IconButton from "@material-ui/core/IconButton";
 // import MenuIcon from "@material-ui/icons/Menu";
@@ -20,18 +20,22 @@ export const NavBar = ({ classes }) => {
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
           <Link to="/" className={classes.link}>
-            Home Page
+            Home
           </Link>
         </Typography>
-        {/* <Typography variant="h6" className={classes.title}>
-          <Link to="/" className={classes.link}>
-            Movies
-          </Link>
-        </Typography> */}
+
         {authTokens ? (
           <Typography variant="h6" className={classes.title}>
             <Link to="/movies" className={classes.link}>
               Movies
+            </Link>
+            {" | "}
+            <Link to="/movies/watchlist" className={classes.link}>
+              Watchlist
+            </Link>
+            {" | "}
+            <Link to="/movies/watched" className={classes.link}>
+              Watched
             </Link>
           </Typography>
         ) : (
@@ -43,7 +47,9 @@ export const NavBar = ({ classes }) => {
             Login
           </Link>
         ) : (
-          <Button onClick={logout}>Logout</Button>
+          <Button onClick={logout} className={classes.link}>
+            Logout
+          </Button>
         )}
       </Toolbar>
     </AppBar>
